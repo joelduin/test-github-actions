@@ -66,6 +66,9 @@ jobs:
         shell: bash
         env:
           SSH_SECRET: ${{ secrets.SSH_PRIVATE_KEY }}
+          
+      - name: Repo name
+        run: echo $GITHUB_REPOSITORY
 
       - name: executing remote ssh commands using password
         uses: appleboy/ssh-action@master
