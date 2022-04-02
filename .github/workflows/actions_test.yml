@@ -75,4 +75,4 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: 22
           debug: true
-          script: ls /home
+          script: cd /home; git clone https://${{ secrets.PERSONAL_TOKEN_GITHUB }}@github.com/joelduin/test-github-actions.git
