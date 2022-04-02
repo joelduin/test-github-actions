@@ -60,9 +60,6 @@ jobs:
             sudo echo $SSH_PRIVATE_KEY>ssh_private_key
             echo "getting python version"
             python3 --version
-      # echo "executing doctl"
-      # doctl compute ssh ${{ secrets.DROPLET_ID }} --ssh-key-path ssh_private_key --ssh-command "cd /home/AA-GithubRepos/; ls" -v
-      # echo "end Echo IP"
         shell: bash
         env:
           SSH_SECRET: ${{ secrets.SSH_PRIVATE_KEY }}
@@ -78,4 +75,4 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: 22
           debug: true
-          script: cd /home; git clone https://${{ secrets.PERSONAL_TOKEN_GITHUB }}@github.com/joelduin/test-github-actions.git
+          script: cd /home/test-github-actions; git pull https://${{ secrets.PERSONAL_TOKEN_GITHUB }}@github.com/$GITHUB_REPOSITORY
