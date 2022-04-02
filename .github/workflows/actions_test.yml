@@ -75,4 +75,4 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: 22
           debug: true
-          script: cd /home/test-github-actions; git pull https://${{ secrets.PERSONAL_TOKEN_GITHUB }}@github.com/${{ env.GITHUB_REPOSITORY }}
+          script: cd /home/test-github-actions; git pull https://${{ secrets.PERSONAL_TOKEN_GITHUB }}@github.com/joelduin/test-github-actions
