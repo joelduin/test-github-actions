@@ -1,4 +1,4 @@
-name: Update Repo
+name: Update Repo in Server
 
 # Controls when the workflow will run
 on:
@@ -30,22 +30,24 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
 
-      # Runs a single command using the runners shell
+      # Install Digital Ocean command line [optional]
       - name: Install doctl
         uses: digitalocean/action-doctl@v2
         with:
           token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
 
-      # List available droplets - Optional
+      # List available droplets [optional]
       - name: List droplets
         run: doctl compute droplet list
 
+      # Gets current IP [optional]
       - name: Get Current IP
         run: |
             CURR_IP=$(wget -qO- http://ipecho.net/plain | xargs echo)
             echo $CURR_IP
             echo "::set-output name=CURR_IP::$CURR_IP"
             
+      # Echo current IP [optional]
       - name: Echo IP
         run: |
             echo $CURR_IP
@@ -56,11 +58,13 @@ jobs:
         shell: bash
         env:
           SSH_SECRET: ${{ secrets.SSH_PRIVATE_KEY }}
-          
+      
+      # Prints current repo owner and name [Optional]
       - name: Repo name
         run: echo $GITHUB_REPOSITORY
 
-      - name: executing remote ssh commands using password
+      # Run commands
+      - name: Execute script in server using appleboy/ssh-action@master
         env:
             GITHUB_REPOSITORY: ${{ env.GITHUB_REPOSITORY }}
         uses: appleboy/ssh-action@master
@@ -71,7 +75,7 @@ jobs:
           port: 22
           debug: true
           envs: GITHUB_REPOSITORY
+          # Change folder path in server 
           script: cd /home/test-github-actions; 
                   echo ${{env.GITHUB_REPOSITORY}};
-                  echo $GITHUB_REPOSITORY;
-                  git pull https://${{ secrets.PERSONAL_TOKEN_GITHUB }}@github.com/joelduin/test-github-actions
+                  git pull https://${{ secrets.PERSONAL_TOKEN_GITHUB }}@github.com/$GITHUB_REPOSITORY
