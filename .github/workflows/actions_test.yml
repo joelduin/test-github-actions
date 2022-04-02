@@ -62,7 +62,7 @@ jobs:
 
       - name: executing remote ssh commands using password
         env:
-            GITHUB_REPOSITORY: $GITHUB_REPOSITORY
+            GITHUB_REPOSITORY: ${{ env.GITHUB_REPOSITORY }}
         uses: appleboy/ssh-action@master
         with:
           host: 137.184.225.215
@@ -70,6 +70,7 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: 22
           debug: true
+          envs: GITHUB_REPOSITORY
           script: cd /home/test-github-actions; 
                   echo ${{env.GITHUB_REPOSITORY}};
                   echo $GITHUB_REPOSITORY;
