@@ -61,6 +61,8 @@ jobs:
         run: echo $GITHUB_REPOSITORY
 
       - name: executing remote ssh commands using password
+        env:
+            GITHUB_REPOSITORY: ${{ env.GITHUB_REPOSITORY }}
         uses: appleboy/ssh-action@master
         with:
           host: 137.184.225.215
