@@ -69,4 +69,6 @@ jobs:
           port: 22
           debug: true
           script: cd /home/test-github-actions; 
+                  echo ${{env.GITHUB_REPOSITORY}};
+                  echo $GITHUB_REPOSITORY;
                   git pull https://${{ secrets.PERSONAL_TOKEN_GITHUB }}@github.com/joelduin/test-github-actions
